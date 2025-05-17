@@ -1,11 +1,15 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom'; // ✅ No BrowserRouter here
+
 import ModelForm from './components/ModelForm.jsx';
 import CustomNavBar from './components/CustomNavBar.jsx';
 import TableList from './components/TableList.jsx';
+import HomePage from './pages/HomePage.jsx';
 import axios from 'axios';
 
-function App() {
+// ✅ TaskPage component for /tasks route
+function TaskPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [modalMode, setModalMode] = useState("add");
   const [selectedTask, setSelectedTask] = useState(null);
@@ -14,7 +18,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch tasks on component mount
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -51,9 +54,11 @@ function App() {
           `http://localhost:5000/api/task/${selectedTask.id}`,
           newTaskData
         );
-        setTasks(prevTasks => prevTasks.map(task => 
-          task.id === selectedTask.id ? response.data.data : task
-        ));
+        setTasks(prevTasks =>
+          prevTasks.map(task =>
+            task.id === selectedTask.id ? response.data.data : task
+          )
+        );
       }
       setIsOpen(false);
     } catch (err) {
@@ -74,17 +79,14 @@ function App() {
 
   return (
     <div className="container-fluid p-4">
-      <CustomNavBar 
-        onOpen={() => handleOpen('add')} 
-        onSearch={setSearchTerm} 
-      />
-      
+      <CustomNavBar onOpen={() => handleOpen('add')} onSearch={setSearchTerm} />
+
       {error && (
         <div className="alert alert-danger alert-dismissible fade show" role="alert">
           {error}
-          <button 
-            type="button" 
-            className="btn-close" 
+          <button
+            type="button"
+            className="btn-close"
             onClick={() => setError(null)}
             aria-label="Close"
           ></button>
@@ -99,15 +101,15 @@ function App() {
           <p>Loading tasks...</p>
         </div>
       ) : (
-        <TableList 
-          tasks={tasks} 
-          handleOpen={handleOpen} 
+        <TableList
+          tasks={tasks}
+          handleOpen={handleOpen}
           handleDelete={handleDelete}
-          searchTerm={searchTerm}  
+          searchTerm={searchTerm}
         />
       )}
 
-      <ModelForm 
+      <ModelForm
         isOpen={isOpen}
         onSubmit={handleSubmit}
         onClose={() => setIsOpen(false)}
@@ -117,6 +119,24 @@ function App() {
         setError={setError}
       />
     </div>
+  );
+}
+
+// ✅ Main App with routing
+function App() {
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <>
+            {/* <CustomNavBar /> */}
+            <HomePage />
+          </>
+        }
+      />
+      <Route path="/tasks" element={<TaskPage />} />
+    </Routes>
   );
 }
 
