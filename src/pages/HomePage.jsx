@@ -15,10 +15,10 @@ function HomePage() {
           <Button 
             variant="primary" 
             size="lg" 
-            onClick={() => navigate('/tasks')}
+            onClick={() => navigate('/login')}
             className="px-4 py-2"
           >
-            Get Started
+            Login
           </Button>
           <Button 
             variant="outline-light" 
@@ -28,6 +28,14 @@ function HomePage() {
           >
             Learn More
           </Button>
+          {/* <Button
+            variant="success"
+            size="lg"
+            onClick={() => navigate('/login')}
+            className="px-4 py-2"
+          >
+            Login
+          </Button> */}
         </div>
       </div>
     </Container>
