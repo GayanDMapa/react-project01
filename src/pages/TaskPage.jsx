@@ -13,6 +13,8 @@ import ModelForm from '../components/ModelForm.jsx';
 import CustomNavBar from '../components/CustomNavBar.jsx';
 import TableList from '../components/TableList.jsx';
 
+import { getLoggedInUserId } from '../utils/auth'; // ✅ Import this helper
+
 function TaskPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [modalMode, setModalMode] = useState('add');
@@ -21,6 +23,9 @@ function TaskPage() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // ✅ Get logged-in user ID from token
+  const loggedInUserId = getLoggedInUserId();
 
   useEffect(() => {
     const getTasks = async () => {
@@ -121,6 +126,7 @@ function TaskPage() {
         taskData={selectedTask}
         error={error}
         setError={setError}
+        loggedInUserId={loggedInUserId} // ✅ Pass userId to modal form
       />
     </div>
   );

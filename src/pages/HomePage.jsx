@@ -28,14 +28,6 @@ function HomePage() {
           >
             Learn More
           </Button>
-          {/* <Button
-            variant="success"
-            size="lg"
-            onClick={() => navigate('/login')}
-            className="px-4 py-2"
-          >
-            Login
-          </Button> */}
         </div>
       </div>
     </Container>

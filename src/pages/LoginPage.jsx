@@ -43,7 +43,7 @@ function LoginPage() {
       <Card className="login-card shadow-lg">
         <Card.Body>
           <div className="text-center mb-4">
-            <h2 className="text-primary">Welcome Back!</h2>
+            <h2 className="text-primary">Welcome</h2>
             <p className="text-muted">Please login to your account</p>
           </div>
 

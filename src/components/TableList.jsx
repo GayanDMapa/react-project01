@@ -80,7 +80,7 @@ function TableList({ tasks, handleOpen, handleDelete, searchTerm }) {
           <thead className="table-dark">
             <tr>
               <th>ID</th>
-              <th>User ID</th>
+              <th>User Name</th>
               <th>Title</th>
               <th>Description</th>
               <th>Status</th>
@@ -98,7 +98,7 @@ function TableList({ tasks, handleOpen, handleDelete, searchTerm }) {
               filteredData.map((task) => (
                 <tr key={task.id}>
                   <td>{task.id}</td>
-                  <td>{task.user_id}</td>
+                  <td>{task.name}</td>
                   <td>{task.title}</td>
                   <td>{task.description || '-'}</td>
                   <td>
