@@ -60,25 +60,29 @@ function TaskPage() {
   };
 
   const handleSubmit = async (newTaskData) => {
-    try {
-      if (modalMode === 'add') {
-        const response = await addTask(newTaskData);
-        setTasks(prev => [...prev, response.data.data]);
-      } else {
-        const response = await updateTask(selectedTask.id, newTaskData);
-        setTasks(prev =>
-          prev.map(task =>
-            task.id === selectedTask.id ? response.data.data : task
-          )
-        );
-      }
-      closeModal();
-    } catch (err) {
-      const message = err.response?.data?.message || 'An error occurred. Please try again.';
-      setError(message);
-      console.error('Error:', err);
+  try {
+    if (modalMode === 'add') {
+      const response = await addTask(newTaskData);
+      setTasks(prev => [...prev, response.data.data]);
+    } else {
+      const response = await updateTask(selectedTask.id, newTaskData);
+      setTasks(prev =>
+        prev.map(task =>
+          task.id === selectedTask.id ? { 
+            ...task, // preserve existing properties
+            ...response.data.data, // update with new data
+            name: task.name // preserve the name if not returned by update
+          } : task
+        )
+      );
     }
-  };
+    closeModal();
+  } catch (err) {
+    const message = err.response?.data?.message || 'An error occurred. Please try again.';
+    setError(message);
+    console.error('Error:', err);
+  }
+};
 
   const handleDelete = async (taskId) => {
     try {

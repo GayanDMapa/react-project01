@@ -22,7 +22,7 @@ function SignupPage() {
 
       setMsg(response.data.message || 'Signup successful!');
       // Optional redirect or store token
-      // window.location.href = "/login";
+      window.location.href = "/login";
     } catch (error) {
       const errMsg = error.response?.data?.message || 'Signup failed';
       setMsg(errMsg);

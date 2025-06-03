@@ -30,7 +30,7 @@ function LoginPage() {
       setMsg('Login successful!');
 
       // Redirect user after login
-      navigate('/tasks');
+      navigate('/selection');
     } catch (error) {
       // Show error message from server or generic
       const errMsg = error.response?.data?.message || 'Login failed';
