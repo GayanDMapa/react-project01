@@ -13,7 +13,7 @@ import ModelForm from '../components/ModelForm.jsx';
 import CustomNavBar from '../components/CustomNavBar.jsx';
 import TableList from '../components/TableList.jsx';
 
-import { getLoggedInUserId } from '../utils/auth'; // ✅ Import this helper
+import { getLoggedInUserId, getLoggedInUser } from '../utils/auth.jsx'; // ✅ Import this helper
 
 function TaskPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +26,8 @@ function TaskPage() {
 
   // ✅ Get logged-in user ID from token
   const loggedInUserId = getLoggedInUserId();
+  const user = getLoggedInUser();
+  console.log(user?.id); // now you can use user.id in fetch calls
 
   useEffect(() => {
     const getTasks = async () => {

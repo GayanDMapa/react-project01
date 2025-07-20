@@ -30,3 +30,8 @@ export const updateTask = (taskId, taskData) => {
 export const deleteTask = (taskId) => {
   return axios.delete(`${API_URL}/${taskId}`, getAuthHeader());
 };
+
+// Fetch only the logged-in user's tasks (GET /api/mytasks)
+export const fetchMyTasks = () => {
+  return axios.get('http://localhost:5000/api/mytasks', getAuthHeader());
+};

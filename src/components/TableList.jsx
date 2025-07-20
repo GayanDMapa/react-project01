@@ -1,14 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { getLoggedInUserId } from '../utils/auth.jsx';
+import { verifyEmail } from '../api';
 
 function TableList({ tasks, handleOpen, handleDelete, searchTerm }) {
   const [localError, setLocalError] = useState(null);
   const [viewMode, setViewMode] = useState('table'); // 'table' or 'list'
 
+  const userId = getLoggedInUserId();
+  console.log('Logged-in user ID:', userId);
+
+  // Extract token from URL
+  const queryParams = new URLSearchParams(window.location.search);
+  const token = queryParams.get('token');
+
+  // Optionally, verify email if token exists
+  useEffect(() => {
+    if (token) {
+      verifyEmail(token)
+        .then(data => {
+          console.log('Email verified:', data);
+          // Optionally show a success message to the user
+        })
+        .catch(error => {
+          console.error('Email verification failed:', error);
+          // Optionally show an error message to the user
+        });
+    }
+  }, [token]);
+
   const filteredData = tasks.filter((task) => {
+    if (!task) return false;
     if (!searchTerm) return true;
     const lower = searchTerm.toLowerCase();
     return (
@@ -95,7 +120,7 @@ function TableList({ tasks, handleOpen, handleDelete, searchTerm }) {
                 </td>
               </tr>
             ) : (
-              filteredData.map((task) => (
+              filteredData.map((task) => (    // <-- Correctly use map() here
                 <tr key={task.id}>
                   <td>{task.id}</td>
                   <td>{task.name}</td>

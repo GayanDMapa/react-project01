@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
-import './LoginPage.css';
+import './LoginPage.css'; // your custom styles if any
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -19,20 +19,20 @@ function LoginPage() {
     setMsg('');
 
     try {
-      // Send POST request to login endpoint
+      // Adjust your backend URL here if needed
       const response = await axios.post('http://localhost:5000/api/login', {
         email,
         password,
       });
 
-      // Save token (for example purposes)
+      // Save token or any auth info
       localStorage.setItem('token', response.data.token);
-      setMsg('Login successful!');
 
-      // Redirect user after login
-      navigate('/selection');
+      setMsg('Login successful! Redirecting...');
+
+      // Redirect to your app’s main page after login
+      setTimeout(() => navigate('/selection'), 1500);
     } catch (error) {
-      // Show error message from server or generic
       const errMsg = error.response?.data?.message || 'Login failed';
       setMsg(errMsg);
     }
@@ -40,7 +40,7 @@ function LoginPage() {
 
   return (
     <Container className="d-flex justify-content-center align-items-center min-vh-100">
-      <Card className="login-card shadow-lg">
+      <Card className="login-card shadow-lg" style={{ maxWidth: '400px', width: '100%' }}>
         <Card.Body>
           <div className="text-center mb-4">
             <h2 className="text-primary">Welcome</h2>

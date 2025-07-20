@@ -13,31 +13,61 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-const TASKS_ENDPOINT = '/tasks'; // endpoint for tasks
+// Task endpoint
+const TASKS_ENDPOINT = '/tasks';
 
-// Get all tasks
-export const getTasks = async () => {
-  const res = await api.get(TASKS_ENDPOINT);
-  return res.data.data;
+// Get all tasks (with optional params)
+export const getTasks = async (params = {}) => {
+  try {
+    const res = await api.get(TASKS_ENDPOINT, { params });
+    return res.data.data;
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    throw error;
+  }
 };
 
 // Add a new task
 export const addTask = async (task) => {
-  const res = await api.post(TASKS_ENDPOINT, task);
-  return res.data.data;
+  try {
+    const res = await api.post(TASKS_ENDPOINT, task);
+    return res.data.data;
+  } catch (error) {
+    console.error('Error adding task:', error);
+    throw error;
+  }
 };
 
 // Update a task
 export const updateTask = async (id, updatedTask) => {
-  const res = await api.put(`${TASKS_ENDPOINT}/${id}`, updatedTask);
-  return res.data.data;
+  try {
+    const res = await api.put(`${TASKS_ENDPOINT}/${id}`, updatedTask);
+    return res.data.data;
+  } catch (error) {
+    console.error('Error updating task:', error);
+    throw error;
+  }
 };
 
 // Delete a task
 export const deleteTask = async (id) => {
-  const res = await api.delete(`${TASKS_ENDPOINT}/${id}`);
-  return res.data.data;
+  try {
+    const res = await api.delete(`${TASKS_ENDPOINT}/${id}`);
+    return res.data.data;
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    throw error;
+  }
 };
 
-// *** Add this to export the axios instance as default ***
+// Verify email endpoint
+export const verifyEmail = async (token) => {
+  try {
+    const response = await api.post('/auth/verify-email', { token });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default api;

@@ -22,15 +22,17 @@ export default function SelectionPage() {
             <p className="page-subtitle">Select an option to get started with your tasks</p>
           </div>
           
-          <div className="selection-container">
-            <div className="task-card task-card-1" onClick={handleMyTask}>
-              <div className="card-overlay"></div>
-              <div className="card-content">
-                <div className="card-icon">📋</div>
-                <h3 className="card-title">My Task</h3>
-                <p className="card-description">Create and manage your personal tasks</p>
-                <button className="task-button">Get Started</button>
-              </div>
+           <div className="selection-container">
+            <div className="task-card task-card-1">
+              <Link to="/myTasks" className="card-link">
+                <div className="card-overlay"></div>
+                <div className="card-content">
+                  <div className="card-icon">📋</div>
+                  <h3 className="card-title">My Task</h3>
+                  <p className="card-description">Create and manage your personal tasks</p>
+                  <button className="task-button">Get Started</button>
+                </div>
+              </Link>
             </div>
             
             <div className="task-card task-card-2">
